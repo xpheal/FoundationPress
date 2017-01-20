@@ -12,3 +12,15 @@ if ( ! function_exists( 'foundationpress_entry_meta' ) ) :
 		echo '<p class="byline author">' . __( 'Written by', 'foundationpress' ) . ' <a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '" rel="author" class="fn">' . get_the_author() . '</a></p>';
 	}
 endif;
+
+if ( ! function_exists( 'foundationpress_entry_meta_author' ) ) :
+	function foundationpress_entry_meta_author() {
+		echo '<p class="byline author">' . __( 'Written by', 'foundationpress' ) . ' <a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '" rel="author" class="fn">' . get_the_author() . '</a></p>';
+	}
+endif;
+
+if ( ! function_exists( 'foundationpress_entry_meta_date' ) ) :
+	function foundationpress_entry_meta_date() {
+		echo '<p><time class="updated" datetime="' . get_the_time( 'c' ) . '">' . sprintf( __( 'Posted on %1$s at %2$s.', 'foundationpress' ), get_the_date(), get_the_time() ) . '</time></p>';
+	}
+endif;

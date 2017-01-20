@@ -2,6 +2,10 @@
   @include grid-row();
   margin-top: 3rem;
 
+	time{
+		font-size: 10pt;
+	}
+
   .main-content {
     @include breakpoint(small) {
       @include grid-column(12);
