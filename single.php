@@ -23,6 +23,10 @@ get_header(); ?>
 				$isJournal = True;
 				break;
 			}
+			if($cat == "Jupyter"){
+				$isJupyter = True;
+				break;
+			}
 		}
 	?>
 	
@@ -34,13 +38,13 @@ get_header(); ?>
 		<?php do_action( 'foundationpress_post_before_entry_content' ); ?>
 		<div class="entry-content">
 			<?php the_content(); ?>
-			<?php $isJournal ?:edit_post_link( __( 'Edit', 'foundationpress' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php $isJournal or $isJupyter ?:edit_post_link( __( 'Edit', 'foundationpress' ), '<span class="edit-link">', '</span>' ); ?>
 		</div>
 		<footer>
 			<?php wp_link_pages( array('before' => '<nav id="page-nav"><p>' . __( 'Pages:', 'foundationpress' ), 'after' => '</p></nav>' ) ); ?>
 			<p><?php the_tags(); ?></p>
 		</footer>
-		<?php the_post_navigation(); ?>
+		<?php $isJournal or $isJupyter ?:the_post_navigation(); ?>
 		<?php do_action( 'foundationpress_post_before_comments' ); ?>
 		<?php $isJournal ?:comments_template(); ?>
 		<?php do_action( 'foundationpress_post_after_comments' ); ?>
