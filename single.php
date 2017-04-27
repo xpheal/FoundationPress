@@ -1,34 +1,40 @@
 <?php
 /**
- * The template for displaying all single posts and attachments
+ * The template for displaying all single posts and attachments. Modified by Wayne to include jupyter type post
  *
  * @package FoundationPress
  * @since FoundationPress 1.0.0
  */
+ ?>
 
-get_header(); ?>
+<?php while ( have_posts() ) : the_post(); ?>
+<?php
+	// Check if this post is a journal or a jupyter post, if yes, set $isJournal to True or $isJupyter to True
+	// Assumes that a post cannot be a journal and a jupyter at the same time, if both are true, it will default to journal
+	$cats = wp_get_post_categories(get_the_ID(), array('fields' => 'names'));
+	$single_post_id = "single-post";
+	$isJournal = False;
+	foreach($cats as $cat){
+		if($cat == "Journal"){
+			$isJournal = True;
+			break;
+		}
+		if($cat == "Jupyter"){
+			$isJupyter = True;
+			$single_post_id = "single-post-jupyter";
+			break;
+		}
+	}
+?>
+
+<?php $isJupyter ? get_header("jupyter") : get_header(); ?>
 
 <?php get_template_part( 'template-parts/featured-image' ); ?>
 
-<div id="single-post" role="main">
+<div id=<?php echo $single_post_id ?> role="main">
 
 <?php do_action( 'foundationpress_before_content' ); ?>
-<?php while ( have_posts() ) : the_post(); ?>
-	<?php
-		// Check if this post is a journal post, if yes, set $isJournal to True
-		$cats = wp_get_post_categories(get_the_ID(), array('fields' => 'names'));
-		$isJournal = False;
-		foreach($cats as $cat){
-			if($cat == "Journal"){
-				$isJournal = True;
-				break;
-			}
-			if($cat == "Jupyter"){
-				$isJupyter = True;
-				break;
-			}
-		}
-	?>
+
 	
 	<article <?php post_class('main-content') ?> id="post-<?php the_ID(); ?>">
 		<header>
