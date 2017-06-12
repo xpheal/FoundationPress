@@ -9459,6 +9459,7 @@ div.cell {
   /* Modern browsers */
   display: flex;
   flex-direction: column;
+  overflow-x: auto;
   align-items: stretch;
   border-radius: 2px;
   box-sizing: border-box;
